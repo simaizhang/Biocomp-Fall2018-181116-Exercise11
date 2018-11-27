@@ -7,8 +7,8 @@
  # usage: bash task1.sh
 for fasta1 in sporecoat0*.fasta
 do
-cat $fasta1 >> sporecoat.fasta
-echo "\n" >> sporecoat.fasta
+   cat $fasta1 >> sporecoat.fasta
+   echo "\n" >> sporecoat.fasta
 done
 
  # generate sequence aligenments
@@ -19,25 +19,25 @@ done
  # usage: bash task2.sh
 for fasta2 in transporter0*.fasta
 do
-cat $fasta2 >> transporterMaster.fasta # cat $fasta2 | sed -e "\$a"\n" >> 
-echo "\n" >> transporterMaster.fasta
+   cat $fasta2 >> transporterMaster.fasta # cat $fasta2 | sed -e "\$a"\n" >> 
+   echo "\n" >> transporterMaster.fasta
 done
 # generate sequence alignments
 /afs/nd.edu/user9/szhang20/local/muscle3.8.31_i86linux64  -in transporterMaster.fasta -out transporter.fasta.align 
 
 #2
  # generate HMM profile for transporter gene
-/afs/nd.edu/user9/szhang20/local/hmmer-3.2.1/bin/hmmbuild transporterMaster.hmm transporter.fasta.align
+/afs/nd.edu/user9/szhang20/local/hmmer-3.2.1/bin/hmmbuild transporter.hmm transporter.fasta.align
  
  # task3.sh
  # search the eight bacterial proteomes
  # record the file name and number of hits
  # redirect result into result.txt
  # usage: bash task3.sh
-for file in *.fasta
+for file in /afs/nd.edu/user9/szhang20/local/Exercise11/proteomes/*.fasta
 do
-/afs/nd.edu/user9/szhang20/local/hmmer-3.2.1/bin/hmmsearch --tblout $file.hits transporter.hmm /afs/nd.edu/user9/szhang20/local/Exercise11/proteomes/$file
-echo $file >> result.txt
-cat $file.hits | grep -v '#' | wc -l  >> result.txt
+    /afs/nd.edu/user9/szhang20/local/hmmer-3.2.1/bin/hmmsearch --tblout $file.hits transporter.hmm $file
+   echo $file >> result.txt
+   cat $file.hits | grep -v '#' | wc -l  >> result.txt
 done
 
